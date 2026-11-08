@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Bichos - Pet Bem-Estar</title>
+</head>
+<body>
+    <h1>Bichos Cadastrados</h1>
+
+    <p>
+        <a th:href="@{/animais/novo}">Novo bicho</a> |
+        <a th:href="@{/clientes}">Clientes</a> |
+        <a th:href="@{/}">Início</a>
+    </p>
+
+    <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Raça</th>
+                <th>Espécie</th>
+                <th>Porte</th>
+                <th>Dono</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="animal : ${animais}">
+                <td th:text="${animal.id}"></td>
+                <td th:text="${animal.nome}"></td>
+                <td th:text="${animal.raca}"></td>
+                <td th:text="${animal.especie}"></td>
+                <td th:text="${animal.porte}"></td>
+                <td th:text="${animal.dono != null ? animal.dono.nome : ''}"></td>
+                <td>
+                    <a th:href="@{/animais/editar/{id}(id=${animal.id})}">Editar</a>
+                    <form th:action="@{/animais/remover/{id}(id=${animal.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${animal.id}">
+                        <button type="submit">Remover</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
