@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Bicho - Pet Bem-Estar</title>
+</head>
+<body>
+    <h1 th:text="${animal.id == null ? 'Novo Bicho' : 'Editar Bicho'}">Bicho</h1>
+
+    <form th:action="@{/animais/salvar}" th:object="${animal}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}">
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color: red;"></span>
+        </div>
+
+        <div>
+            <label for="raca">Raça:</label>
+            <input type="text" id="raca" th:field="*{raca}">
+        </div>
+
+        <div>
+            <label for="especie">Espécie:</label>
+            <select id="especie" th:field="*{especie}">
+                <option value="">Selecione...</option>
+                <option th:each="esp : ${especies}" th:value="${esp}" th:text="${esp}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('especie')}" th:errors="*{especie}" style="color: red;"></span>
+        </div>
+
+        <div>
+            <label for="porte">Porte:</label>
+            <select id="porte" th:field="*{porte}">
+                <option value="">Selecione...</option>
+                <option th:each="p : ${portes}" th:value="${p}" th:text="${p}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('porte')}" th:errors="*{porte}" style="color: red;"></span>
+        </div>
+
+        <div>
+            <label for="dono">Dono (Cliente):</label>
+            <select id="dono" th:field="*{dono}">
+                <option value="">Selecione o dono...</option>
+                <option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nome}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('dono')}" th:errors="*{dono}" style="color: red;"></span>
+        </div>
+
+        <div>
+            <button type="submit">Salvar</button>
+            <a th:href="@{/animais}">Voltar</a>
+        </div>
+    </form>
+</body>
+</html>
