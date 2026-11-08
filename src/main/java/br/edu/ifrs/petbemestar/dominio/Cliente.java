@@ -1,11 +1,16 @@
 package br.edu.ifrs.petbemestar.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -23,6 +28,10 @@ public class Cliente {
 
     private String email;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "dono")
+    private List<Animal> animais = new ArrayList<>();
+
     public Cliente() {
     }
 
@@ -30,6 +39,11 @@ public class Cliente {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
+    }
+
+    public void adicionarAnimal(Animal animal) {
+        animais.add(animal);
+        animal.setDono(this);
     }
 
     public Long getId() {
@@ -62,6 +76,14 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Animal> getAnimais() {
+        return animais;
+    }
+
+    public void setAnimais(List<Animal> animais) {
+        this.animais = animais;
     }
 
     @Override
