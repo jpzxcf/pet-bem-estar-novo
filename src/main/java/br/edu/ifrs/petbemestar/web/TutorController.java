@@ -2,7 +2,9 @@ package br.edu.ifrs.petbemestar.web;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +24,14 @@ public class TutorController {
     @GetMapping
     public List<Tutor> listarTodos() {
         return tutorDAO.listarTodos();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Tutor> buscarPorId(@PathVariable Long id) {
+        Tutor tutor = tutorDAO.buscarPorId(id);
+        if (tutor == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(tutor);
     }
 }
