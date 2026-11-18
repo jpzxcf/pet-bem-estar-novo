@@ -13,27 +13,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifrs.petbemestar.dao.TutorDAO;
 import br.edu.ifrs.petbemestar.dominio.Tutor;
+import br.edu.ifrs.petbemestar.service.TutorService;
 
 @RestController
 @RequestMapping("/tutores")
 public class TutorController {
 
-    private final TutorDAO tutorDAO;
+    private final TutorService tutorService;
 
-    public TutorController(TutorDAO tutorDAO) {
-        this.tutorDAO = tutorDAO;
+    public TutorController(TutorService tutorService) {
+        this.tutorService = tutorService;
     }
 
     @GetMapping
     public List<Tutor> listarTodos() {
-        return tutorDAO.listarTodos();
+        return tutorService.listarTodos();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Tutor> buscarPorId(@PathVariable Long id) {
-        Tutor tutor = tutorDAO.buscarPorId(id);
+        Tutor tutor = tutorService.buscarPorId(id);
         if (tutor == null) {
             return ResponseEntity.notFound().build();
         }
@@ -42,28 +42,28 @@ public class TutorController {
 
     @PostMapping
     public ResponseEntity<Tutor> salvar(@RequestBody Tutor tutor) {
-        tutorDAO.salvar(tutor);
+        tutorService.salvar(tutor);
         return ResponseEntity.status(HttpStatus.CREATED).body(tutor);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Tutor> atualizar(@PathVariable Long id, @RequestBody Tutor tutor) {
-        Tutor existente = tutorDAO.buscarPorId(id);
+        Tutor existente = tutorService.buscarPorId(id);
         if (existente == null) {
             return ResponseEntity.notFound().build();
         }
         tutor.setId(id);
-        tutorDAO.atualizar(tutor);
+        tutorService.atualizar(tutor);
         return ResponseEntity.ok(tutor);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Long id) {
-        Tutor existente = tutorDAO.buscarPorId(id);
+        Tutor existente = tutorService.buscarPorId(id);
         if (existente == null) {
             return ResponseEntity.notFound().build();
         }
-        tutorDAO.remover(id);
+        tutorService.remover(id);
         return ResponseEntity.noContent().build();
     }
 }

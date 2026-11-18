@@ -6,16 +6,16 @@ import java.util.Locale;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
 
-import br.edu.ifrs.petbemestar.dao.ClienteDAO;
 import br.edu.ifrs.petbemestar.dominio.Cliente;
+import br.edu.ifrs.petbemestar.service.ClienteService;
 
 @Component
 public class ClienteFormatter implements Formatter<Cliente> {
 
-    private final ClienteDAO clienteDAO;
+    private final ClienteService clienteService;
 
-    public ClienteFormatter(ClienteDAO clienteDAO) {
-        this.clienteDAO = clienteDAO;
+    public ClienteFormatter(ClienteService clienteService) {
+        this.clienteService = clienteService;
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ClienteFormatter implements Formatter<Cliente> {
         if (id == null || id.isBlank()) {
             return null;
         }
-        return clienteDAO.buscarPorId(Long.valueOf(id));
+        return clienteService.buscarPorId(Long.valueOf(id));
     }
 }

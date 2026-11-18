@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.edu.ifrs.petbemestar.dao.ClienteDAO;
 import br.edu.ifrs.petbemestar.dominio.Cliente;
+import br.edu.ifrs.petbemestar.service.ClienteService;
 import jakarta.validation.Valid;
 
 @Controller
 public class ClienteController {
 
-    private final ClienteDAO clienteDAO;
+    private final ClienteService clienteService;
 
-    public ClienteController(ClienteDAO clienteDAO) {
-        this.clienteDAO = clienteDAO;
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
     }
 
     @GetMapping("/")
@@ -29,7 +29,7 @@ public class ClienteController {
 
     @GetMapping("/clientes")
     public String listar(Model model) {
-        model.addAttribute("clientes", clienteDAO.listarTodos());
+        model.addAttribute("clientes", clienteService.listarTodos());
         return "clientes";
     }
 
@@ -41,14 +41,14 @@ public class ClienteController {
 
     @GetMapping("/clientes/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        Cliente cliente = clienteDAO.buscarPorId(id);
+        Cliente cliente = clienteService.buscarPorId(id);
         model.addAttribute("cliente", cliente);
         return "form-cliente";
     }
 
     @GetMapping("/clientes/editar")
     public String editarPorParametro(@RequestParam Long id, Model model) {
-        Cliente cliente = clienteDAO.buscarPorId(id);
+        Cliente cliente = clienteService.buscarPorId(id);
         model.addAttribute("cliente", cliente);
         return "form-cliente";
     }
@@ -59,22 +59,22 @@ public class ClienteController {
             return "form-cliente";
         }
         if (cliente.getId() == null) {
-            clienteDAO.salvar(cliente);
+            clienteService.salvar(cliente);
         } else {
-            clienteDAO.atualizar(cliente);
+            clienteService.atualizar(cliente);
         }
         return "redirect:/clientes";
     }
 
     @PostMapping("/clientes/remover/{id}")
     public String remover(@PathVariable Long id) {
-        clienteDAO.remover(id);
+        clienteService.remover(id);
         return "redirect:/clientes";
     }
 
     @PostMapping("/clientes/remover")
     public String removerPorParametro(@RequestParam Long id) {
-        clienteDAO.remover(id);
+        clienteService.remover(id);
         return "redirect:/clientes";
     }
 }
