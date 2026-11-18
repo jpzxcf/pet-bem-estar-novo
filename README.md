@@ -15,6 +15,14 @@ O **Pet Bem-Estar** é uma aplicação web desenvolvida em Java com Spring Boot 
 - **Gerenciamento de Animais (Pets):** Cadastro, listagem, edição e remoção de animais vinculados aos seus respectivos clientes, com suporte a espécie e porte.
 - **API/Rotas de Tutores:** Gerenciamento e consulta de tutores.
 
+### O que foi feito em cada etapa
+
+1. **O serviço no meio:** Foram criadas as classes de serviço `ClienteService`, `AnimalService` e `TutorService` entre as telas e o banco de dados. Agora, os controllers (`ClienteController`, `AnimalController`, `TutorController` e `ClienteFormatter`) chamam apenas os serviços, e só os serviços acessam os DAOs (tanto nas páginas quanto nas rotas JSON).
+2. **Cliente com bicho não sai:** Foi criada a exceção `RegraDeNegocioException`. Se alguém tentar excluir um cliente que ainda tem animais cadastrados, o `ClienteService` bloqueia a exclusão e lança essa exceção, mantendo o cliente na lista e mostrando uma mensagem clara na tela `clientes.html`. Clientes sem animais são removidos normalmente.
+3. **Um telefone, um cliente:** O `ClienteService` e o `ClienteDAO` passam a verificar se o telefone já existe antes de salvar. O sistema não deixa cadastrar dois clientes com o mesmo telefone e mostra o aviso em `form-cliente.html` sem apagar o que já foi digitado. Na edição, o cliente pode manter o próprio telefone, mas não pode usar o de outro cliente.
+4. **A ficha do cliente:** Na lista de clientes, clicar no nome de um cliente abre a página `detalhe-cliente.html` com o nome, o telefone e todos os animais ligados a ele, buscados diretamente do banco por uma consulta JPQL no `AnimalDAOJPA` filtrando pelo id do cliente.
+5. **Login e cadastro de usuário:** Foram criados `Usuario`, `UsuarioDAO`, `UsuarioDAOJPA`, `UsuarioService`, `UsuarioPaginaController` e as telas `login.html` e `cadastro.html`. A senha é salva criptografada com hash (`BCryptPasswordEncoder`), o `LoginInterceptor` leva para a tela de login quem não estiver logado e, depois de entrar, aparece um link para sair (`/logout`).
+6. **A cara do Pet Bem-Estar:** A logo do petshop (`src/main/resources/static/images/logo.jpg`) foi colocada no topo de todas as páginas e o arquivo `src/main/resources/static/css/estilo.css` foi ligado a todo o sistema (inclusive login e cadastro) para deixar cabeçalho, botões, tabelas e mensagens de erro com o mesmo visual.
 ## Acesso ao Projeto
 
 ### Pré-requisitos
