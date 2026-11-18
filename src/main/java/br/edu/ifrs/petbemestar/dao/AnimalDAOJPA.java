@@ -44,4 +44,11 @@ public class AnimalDAOJPA implements AnimalDAO {
             em.remove(animal);
         }
     }
+
+    @Override
+    public List<Animal> listarPorCliente(Long clienteId) {
+        return em.createQuery("SELECT a FROM Animal a WHERE a.dono.id = :clienteId ORDER BY a.nome", Animal.class)
+                .setParameter("clienteId", clienteId)
+                .getResultList();
+    }
 }

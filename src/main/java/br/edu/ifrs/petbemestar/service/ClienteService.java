@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.edu.ifrs.petbemestar.dao.AnimalDAO;
 import br.edu.ifrs.petbemestar.dao.ClienteDAO;
 import br.edu.ifrs.petbemestar.dominio.Cliente;
 
@@ -11,9 +12,11 @@ import br.edu.ifrs.petbemestar.dominio.Cliente;
 public class ClienteService {
 
     private final ClienteDAO clienteDAO;
+    private final AnimalDAO animalDAO;
 
-    public ClienteService(ClienteDAO clienteDAO) {
+    public ClienteService(ClienteDAO clienteDAO, AnimalDAO animalDAO) {
         this.clienteDAO = clienteDAO;
+        this.animalDAO = animalDAO;
     }
 
     public List<Cliente> listarTodos() {
@@ -33,6 +36,10 @@ public class ClienteService {
     }
 
     public void remover(Long id) {
+        Cliente cliente = clienteDAO.buscarPorId(id);
+        if (cliente != null && !animalDAO.listarPorCliente(id).isEmpty()) {
+            throw new RegraDeNegocioException(cliente.getNome() + " ainda tem bichos cadastrados e não pode ser removido.");
+        }
         clienteDAO.remover(id);
     }
 }

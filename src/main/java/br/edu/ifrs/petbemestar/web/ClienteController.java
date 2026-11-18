@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.ifrs.petbemestar.dominio.Cliente;
 import br.edu.ifrs.petbemestar.service.ClienteService;
+import br.edu.ifrs.petbemestar.service.RegraDeNegocioException;
 import jakarta.validation.Valid;
 
 @Controller
@@ -67,14 +68,26 @@ public class ClienteController {
     }
 
     @PostMapping("/clientes/remover/{id}")
-    public String remover(@PathVariable Long id) {
-        clienteService.remover(id);
-        return "redirect:/clientes";
+    public String remover(@PathVariable Long id, Model model) {
+        try {
+            clienteService.remover(id);
+            return "redirect:/clientes";
+        } catch (RegraDeNegocioException e) {
+            model.addAttribute("clientes", clienteService.listarTodos());
+            model.addAttribute("erro", e.getMessage());
+            return "clientes";
+        }
     }
 
     @PostMapping("/clientes/remover")
-    public String removerPorParametro(@RequestParam Long id) {
-        clienteService.remover(id);
-        return "redirect:/clientes";
+    public String removerPorParametro(@RequestParam Long id, Model model) {
+        try {
+            clienteService.remover(id);
+            return "redirect:/clientes";
+        } catch (RegraDeNegocioException e) {
+            model.addAttribute("clientes", clienteService.listarTodos());
+            model.addAttribute("erro", e.getMessage());
+            return "clientes";
+        }
     }
 }

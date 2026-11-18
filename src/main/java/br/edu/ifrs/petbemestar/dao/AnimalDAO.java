@@ -10,4 +10,5 @@ public interface AnimalDAO {
     void salvar(Animal animal);
     void atualizar(Animal animal);
     void remover(Long id);
+    List<Animal> listarPorCliente(Long clienteId);
 }
