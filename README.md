@@ -1,14 +1,12 @@
 # Pet Bem-Estar
 
 <p align="center">
-  <img src="src/main/resources/static/images/logo.jpg" alt="Logo Pet Bem-Estar" width="320" />
+  <img src="src/main/resources/static/images/logo.jpg" alt="Logo Pet Bem-Estar" width="900" />
 </p>
 
 ## Descrição do Projeto
 
 O **Pet Bem-Estar** é uma aplicação web desenvolvida em Java com Spring Boot para o gerenciamento de um pet shop / clínica veterinária. O sistema permite organizar o cadastro de clientes (tutores) e seus respectivos animais de estimação de forma simples e segura, contando com autenticação de usuários e persistência em banco de dados MySQL.
-
----
 
 ## Funcionalidades
 
@@ -16,8 +14,6 @@ O **Pet Bem-Estar** é uma aplicação web desenvolvida em Java com Spring Boot 
 - **Gerenciamento de Clientes:** Listagem, cadastro, visualização de detalhes, edição e remoção de clientes.
 - **Gerenciamento de Animais (Pets):** Cadastro, listagem, edição e remoção de animais vinculados aos seus respectivos clientes, com suporte a espécie e porte.
 - **API/Rotas de Tutores:** Gerenciamento e consulta de tutores.
-
----
 
 ## Acesso ao Projeto
 
@@ -56,7 +52,7 @@ O **Pet Bem-Estar** é uma aplicação web desenvolvida em Java com Spring Boot 
 4. **Acesse no navegador:**
    Abra `http://localhost:8080` para utilizar o sistema (ou `http://localhost:8080/login`).
 
----
+
 
 ## Tecnologias Utilizadas
 
