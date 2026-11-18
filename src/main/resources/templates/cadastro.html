@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário - Pet Bem-Estar</title>
+</head>
+<body>
+    <h1>Cadastro de Usuário - Pet Bem-Estar</h1>
+
+    <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+
+    <form th:action="@{/cadastro}" th:object="${usuario}" method="post">
+        <div>
+            <label for="nomeUsuario">Nome de usuário:</label>
+            <input type="text" id="nomeUsuario" th:field="*{nomeUsuario}">
+            <span th:if="${#fields.hasErrors('nomeUsuario')}" th:errors="*{nomeUsuario}" style="color: red;"></span>
+        </div>
+        <div>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" th:field="*{senha}">
+            <span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" style="color: red;"></span>
+        </div>
+        <div>
+            <button type="submit">Cadastrar</button>
+            <a th:href="@{/login}">Voltar para login</a>
+        </div>
+    </form>
+</body>
+</html>
