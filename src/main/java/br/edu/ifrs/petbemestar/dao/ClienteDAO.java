@@ -9,5 +9,6 @@ public interface ClienteDAO {
     Cliente buscarPorId(Long id);
     void salvar(Cliente cliente);
     void atualizar(Cliente cliente);
+    Cliente buscarPorTelefone(String telefone);
     void remover(Long id);
 }

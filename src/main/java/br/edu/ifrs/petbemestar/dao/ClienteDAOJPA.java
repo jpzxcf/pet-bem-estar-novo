@@ -44,4 +44,12 @@ public class ClienteDAOJPA implements ClienteDAO {
             em.remove(cliente);
         }
     }
+    
+    @Override
+    public Cliente buscarPorTelefone(String telefone) {
+        List<Cliente> lista = em.createQuery("SELECT c FROM Cliente c WHERE c.telefone = :telefone", Cliente.class)
+                .setParameter("telefone", telefone)
+                .getResultList();
+        return lista.isEmpty() ? null : lista.get(0);
+    }
 }

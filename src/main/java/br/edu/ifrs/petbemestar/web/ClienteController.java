@@ -55,16 +55,21 @@ public class ClienteController {
     }
 
     @PostMapping({"/clientes", "/clientes/salvar"})
-    public String salvar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result) {
+    public String salvar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "form-cliente";
         }
-        if (cliente.getId() == null) {
-            clienteService.salvar(cliente);
-        } else {
-            clienteService.atualizar(cliente);
+        try {
+            if (cliente.getId() == null) {
+                clienteService.salvar(cliente);
+            } else {
+                clienteService.atualizar(cliente);
+            }
+            return "redirect:/clientes";
+        } catch (RegraDeNegocioException e) {
+            model.addAttribute("erro", e.getMessage());
+            return "form-cliente";
         }
-        return "redirect:/clientes";
     }
 
     @PostMapping("/clientes/remover/{id}")

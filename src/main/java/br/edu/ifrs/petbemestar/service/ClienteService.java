@@ -28,13 +28,22 @@ public class ClienteService {
     }
 
     public void salvar(Cliente cliente) {
+    	validarTelefoneDuplicado(cliente);
         clienteDAO.salvar(cliente);
     }
 
     public void atualizar(Cliente cliente) {
+    	validarTelefoneDuplicado(cliente);
         clienteDAO.atualizar(cliente);
     }
 
+    private void validarTelefoneDuplicado(Cliente cliente) {
+        Cliente existente = clienteDAO.buscarPorTelefone(cliente.getTelefone());
+        if (existente != null && !existente.getId().equals(cliente.getId())) {
+            throw new RegraDeNegocioException("Já existe outro cliente cadastrado com esse telefone.");
+        }
+    }
+    
     public void remover(Long id) {
         Cliente cliente = clienteDAO.buscarPorId(id);
         if (cliente != null && !animalDAO.listarPorCliente(id).isEmpty()) {
