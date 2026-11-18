@@ -53,6 +53,13 @@ public class ClienteController {
         model.addAttribute("cliente", cliente);
         return "form-cliente";
     }
+    
+    @GetMapping("/clientes/{id}")
+    public String detalhe(@PathVariable Long id, Model model) {
+        model.addAttribute("cliente", clienteService.buscarPorId(id));
+        model.addAttribute("animais", clienteService.listarAnimais(id));
+        return "detalhe-cliente";
+    }
 
     @PostMapping({"/clientes", "/clientes/salvar"})
     public String salvar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model) {

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifrs.petbemestar.dao.AnimalDAO;
 import br.edu.ifrs.petbemestar.dao.ClienteDAO;
+import br.edu.ifrs.petbemestar.dominio.Animal;
 import br.edu.ifrs.petbemestar.dominio.Cliente;
 
 @Service
@@ -27,6 +28,11 @@ public class ClienteService {
         return clienteDAO.buscarPorId(id);
     }
 
+    	
+    public List<Animal> listarAnimais(Long clienteId) {
+        return animalDAO.listarPorCliente(clienteId);
+    }
+    
     public void salvar(Cliente cliente) {
     	validarTelefoneDuplicado(cliente);
         clienteDAO.salvar(cliente);

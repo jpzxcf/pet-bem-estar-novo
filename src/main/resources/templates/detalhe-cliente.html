@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+   <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+   <head>
+       <meta charset="UTF-8">
+       <title>Ficha do Cliente - Pet Bem-Estar</title>
+   </head>
+   <body>
+       <h1 th:text="${cliente.nome}">Nome do Cliente</h1>
+ 
+       <p>
+           <strong>Telefone:</strong> <span th:text="${cliente.telefone}"></span>
+       </p>
+ 
+       <p>
+           <a th:href="@{/clientes}">Voltar para clientes</a> |
+           <a th:href="@{/}">Início</a>
+       </p>
+ 
+       <h2>Bichos do cliente</h2>
+ 
+       <p th:if="${animais.isEmpty()}">Nenhum bicho cadastrado para este cliente.</p> 
+ 
+       <table th:if="${!animais.isEmpty()}" border="1" cellpadding="6" cellspacing="0">
+           <thead>
+               <tr> 
+                   <th>Nome</th>
+                   <th>Raça</th>
+                   <th>Espécie</th>
+                   <th>Porte</th>
+               </tr>
+           </thead>
+           <tbody> 
+               <tr th:each="animal : ${animais}">
+                   <td th:text="${animal.nome}"></td>
+                   <td th:text="${animal.raca}"></td>
+                   <td th:text="${animal.especie}"></td>
+                   <td th:text="${animal.porte}"></td>
+               </tr>
+           </tbody>
+       </table>
+   </body>
+   </html>
