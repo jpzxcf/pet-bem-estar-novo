@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Usuário - Pet Bem-Estar</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
-<body>
-    <h1>Cadastro de Usuário - Pet Bem-Estar</h1>
+<body class="pagina-login">
+    <div class="login-box">
+        <img th:src="@{/images/logo.jpg}" alt="Pet Bem-Estar" class="logo">
 
-    <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+        <h1>Cadastro de Usuário</h1>
 
-    <form th:action="@{/cadastro}" th:object="${usuario}" method="post">
-        <div>
-            <label for="nomeUsuario">Nome de usuário:</label>
-            <input type="text" id="nomeUsuario" th:field="*{nomeUsuario}">
-            <span th:if="${#fields.hasErrors('nomeUsuario')}" th:errors="*{nomeUsuario}" style="color: red;"></span>
-        </div>
-        <div>
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" th:field="*{senha}">
-            <span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" style="color: red;"></span>
-        </div>
-        <div>
-            <button type="submit">Cadastrar</button>
-            <a th:href="@{/login}">Voltar para login</a>
-        </div>
-    </form>
+        <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+
+        <form th:action="@{/cadastro}" th:object="${usuario}" method="post">
+            <div>
+                <label for="nomeUsuario">Nome de usuário:</label>
+                <input type="text" id="nomeUsuario" th:field="*{nomeUsuario}">
+                <span th:if="${#fields.hasErrors('nomeUsuario')}" th:errors="*{nomeUsuario}"></span>
+            </div>
+            <div>
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" th:field="*{senha}">
+                <span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
+            </div>
+            <div>
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+
+        <p>Já tem conta? <a th:href="@{/login}">Voltar para login</a></p>
+    </div>
 </body>
 </html>

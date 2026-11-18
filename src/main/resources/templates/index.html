@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Pet Bem-Estar</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
 <body>
-    <h1>Pet Bem-Estar - Sistema da Dona Marlene</h1>
-    <nav>
-        <ul>
-            <li><a th:href="@{/clientes}">Clientes</a></li>
-            <li><a th:href="@{/animais}">Bichos (Animais)</a></li>
-            <li><a th:href="@{/logout}">Sair</a></li>
-        </ul>
-    </nav>
+    <header class="topo">
+        <div class="topo-conteudo">
+            <img th:src="@{/images/logo.jpg}" alt="Pet Bem-Estar" class="logo">
+            <nav class="menu">
+                <a th:href="@{/clientes}">Clientes</a>
+                <a th:href="@{/animais}">Bichos</a>
+                <a th:href="@{/logout}">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="conteudo boas-vindas">
+        <h1>Bem-vindo, <span th:text="${session.usuarioLogado != null ? session.usuarioLogado.nomeUsuario : ''}"></span>!</h1>
+    </main>
 </body>
 </html>

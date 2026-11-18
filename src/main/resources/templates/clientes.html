@@ -3,46 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes - Pet Bem-Estar</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
 <body>
-    <h1>Clientes</h1>
+    <header class="topo">
+        <div class="topo-conteudo">
+            <img th:src="@{/images/logo.jpg}" alt="Pet Bem-Estar" class="logo">
+            <nav class="menu">
+                <a th:href="@{/clientes}">Clientes</a>
+                <a th:href="@{/animais}">Bichos</a>
+                <a th:href="@{/logout}">Sair</a>
+            </nav>
+        </div>
+    </header>
 
-    <p>
-        <a th:href="@{/clientes/novo}">Novo cliente</a> |
-        <a th:href="@{/animais}">Bichos</a> |
-        <a th:href="@{/}">Início</a> |
-        <a th:href="@{/logout}">Sair</a>
-    </p>
+    <main class="conteudo">
+        <h1>Clientes</h1>
 
-    <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+        <p class="acoes-topo">
+            <a th:href="@{/clientes/novo}" class="botao">Novo cliente</a>
+        </p>
 
-    <table border="1" cellpadding="6" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="cliente : ${clientes}">
-                <td th:text="${cliente.id}"></td>
-					<td>                                                                                                                                                 
-				    	<a th:href="@{/clientes/{id}(id=${cliente.id})}" th:text="${cliente.nome}"></a>                                                                  
-					</td> 
-                <td th:text="${cliente.telefone}"></td>
-                <td th:text="${cliente.email}"></td>
-                <td>
-                    <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}">Editar</a>
-                    <form th:action="@{/clientes/remover/{id}(id=${cliente.id})}" method="post" style="display:inline;">
-                        <input type="hidden" name="id" th:value="${cliente.id}">
-                        <button type="submit">Remover</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}"></td>
+                    <td>
+                        <a th:href="@{/clientes/{id}(id=${cliente.id})}" th:text="${cliente.nome}"></a>
+                    </td>
+                    <td th:text="${cliente.telefone}"></td>
+                    <td th:text="${cliente.email}"></td>
+                    <td>
+                        <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="botao">Editar</a>
+                        <form th:action="@{/clientes/remover/{id}(id=${cliente.id})}" method="post" style="display:inline;">
+                            <input type="hidden" name="id" th:value="${cliente.id}">
+                            <button type="submit" class="botao-secundario">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>

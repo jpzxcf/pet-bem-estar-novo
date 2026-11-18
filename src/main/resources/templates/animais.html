@@ -3,46 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Bichos - Pet Bem-Estar</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
 <body>
-    <h1>Bichos Cadastrados</h1>
+    <header class="topo">
+        <div class="topo-conteudo">
+            <img th:src="@{/images/logo.jpg}" alt="Pet Bem-Estar" class="logo">
+            <nav class="menu">
+                <a th:href="@{/clientes}">Clientes</a>
+                <a th:href="@{/animais}">Bichos</a>
+                <a th:href="@{/logout}">Sair</a>
+            </nav>
+        </div>
+    </header>
 
-    <p>
-        <a th:href="@{/animais/novo}">Novo bicho</a> |
-        <a th:href="@{/clientes}">Clientes</a> |
-        <a th:href="@{/}">Início</a> |
-        <a th:href="@{/logout}">Sair</a>
-    </p>
+    <main class="conteudo">
+        <h1>Bichos Cadastrados</h1>
 
-    <table border="1" cellpadding="6" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Raça</th>
-                <th>Espécie</th>
-                <th>Porte</th>
-                <th>Dono</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="animal : ${animais}">
-                <td th:text="${animal.id}"></td>
-                <td th:text="${animal.nome}"></td>
-                <td th:text="${animal.raca}"></td>
-                <td th:text="${animal.especie}"></td>
-                <td th:text="${animal.porte}"></td>
-                <td th:text="${animal.dono != null ? animal.dono.nome : ''}"></td>
-                <td>
-                    <a th:href="@{/animais/editar/{id}(id=${animal.id})}">Editar</a>
-                    <form th:action="@{/animais/remover/{id}(id=${animal.id})}" method="post" style="display:inline;">
-                        <input type="hidden" name="id" th:value="${animal.id}">
-                        <button type="submit">Remover</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <p class="acoes-topo">
+            <a th:href="@{/animais/novo}" class="botao">Novo bicho</a>
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Raça</th>
+                    <th>Espécie</th>
+                    <th>Porte</th>
+                    <th>Dono</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="animal : ${animais}">
+                    <td th:text="${animal.id}"></td>
+                    <td th:text="${animal.nome}"></td>
+                    <td th:text="${animal.raca}"></td>
+                    <td th:text="${animal.especie}"></td>
+                    <td th:text="${animal.porte}"></td>
+                    <td th:text="${animal.dono != null ? animal.dono.nome : ''}"></td>
+                    <td>
+                        <a th:href="@{/animais/editar/{id}(id=${animal.id})}" class="botao">Editar</a>
+                        <form th:action="@{/animais/remover/{id}(id=${animal.id})}" method="post" style="display:inline;">
+                            <input type="hidden" name="id" th:value="${animal.id}">
+                            <button type="submit" class="botao-secundario">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>
